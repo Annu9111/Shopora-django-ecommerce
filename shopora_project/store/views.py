@@ -13,3 +13,7 @@ def home(request):
         })
 
     return render(request, 'store/home.html', {'data': data})
+
+def product_detail(request, id):
+    product = Product.objects.get(id=id)
+    return render(request, 'store/product_details.html', {'product': product})

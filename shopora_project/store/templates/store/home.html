@@ -58,7 +58,9 @@
                     <div class="card h-100 shadow-sm product-card">
 
                         <!-- Product Image -->
-                        <img src="{{ product.image.url }}" class="card-img-top" style="height: 220px; object-fit: cover;">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <img src="{{ product.image.url }}" class="card-img-top" style="height: 220px; object-fit: cover;">
+                        </a>
 
                         <!-- Product Info -->
                         <div class="card-body text-center">
@@ -79,7 +81,7 @@
 
 <!-- Footer -->
 <footer class="bg-dark text-white text-center py-3 mt-5">
-    <p class="mb-0">© 2026 Shopora | Built with Django 💙</p>
+    <p class="mb-0">© 2026 Shopora | Built by Annu Soni 💙</p>
 </footer>
 
 <!-- JS -->
