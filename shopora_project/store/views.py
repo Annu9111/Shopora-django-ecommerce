@@ -12,4 +12,4 @@ def home(request):
             'products': products
         })
 
-    return render(request, 'home.html', {'data': data})
+    return render(request, 'store/home.html', {'data': data})
