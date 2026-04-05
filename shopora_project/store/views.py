@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Product, Category,Cart
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect ,get_object_or_404
 
 def home(request):
     categories = Category.objects.all()
@@ -35,4 +35,9 @@ def add_to_cart(request, id):
 def cart_view(request):
     cart_items = Cart.objects.all()
     return render(request, 'store/cart.html', {'cart_items': cart_items})
+
+def remove_from_cart(request, cart_id):
+    item = get_object_or_404(Cart, id=cart_id)
+    item.delete()
+    return redirect('cart')
 

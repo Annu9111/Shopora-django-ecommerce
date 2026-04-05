@@ -23,7 +23,9 @@
                         <h5>{{ item.product.name }}</h5>
                         <p class="text-success fw-bold">₹{{ item.product.price }}</p>
 
-                        <a href="#" class="btn btn-danger btn-sm">Remove</a>
+                        <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">
+                            Remove
+                        </a>
                     </div>
 
                 </div>
