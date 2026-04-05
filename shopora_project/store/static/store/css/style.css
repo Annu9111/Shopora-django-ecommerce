@@ -93,4 +93,28 @@ h1 {
 body {
     margin: 0;
     scroll-behavior: smooth;
+    background-color: #f5f7fa; 
+}
+body {
+    background-color: #f1f3f6;   /* Flipkart style grey */
+}
+
+.navbar {
+    background-color: #1f2937 !important; /* dark navbar */
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    background-color: #ffffff;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    color: #1f2937;
 }
