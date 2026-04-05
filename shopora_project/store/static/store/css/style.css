@@ -25,6 +25,33 @@ h1 {
     box-shadow: 0px 12px 25px rgba(0,0,0,0.2);
 }
 
+.hero1 {
+    background-image: url('/static/store/images/banner1.png');
+}
+
+.hero2 {
+    background-image: url('/static/store/images/banner2.png');
+}
+
+.hero3 {
+    background-image: url('/static/store/images/banner3.png');
+}
+
 .navbar-brand {
     font-size: 22px;
+}
+.hero-slide {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(50%); /* opacity effect */
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 10;
 }
