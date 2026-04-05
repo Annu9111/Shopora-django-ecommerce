@@ -11,7 +11,7 @@ def home(request):
     data = []
 
     for category in categories:
-        products = Product.objects.filter(category=category)[:3]
+        products = Product.objects.filter(category=category)
         data.append({
             'category': category,
             'products': products

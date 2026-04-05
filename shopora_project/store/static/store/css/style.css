@@ -115,3 +115,8 @@ body {
 h2, h3 {
     color: #1f2937;
 }
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
