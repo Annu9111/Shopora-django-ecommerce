@@ -31,3 +31,8 @@ def add_to_cart(request, id):
 
     return redirect('home')
 
+
+def cart_view(request):
+    cart_items = Cart.objects.all()
+    return render(request, 'store/cart.html', {'cart_items': cart_items})
+
