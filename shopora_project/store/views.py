@@ -148,4 +148,8 @@ def products_page(request):
     products = Product.objects.all()
     return render(request, 'store/products.html', {'products': products})
 
-            
+
+
+def orders_page(request):
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'store/orders.html', {'orders': orders})            
