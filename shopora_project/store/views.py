@@ -144,4 +144,8 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
+def products_page(request):
+    products = Product.objects.all()
+    return render(request, 'store/products.html', {'products': products})
+
             
