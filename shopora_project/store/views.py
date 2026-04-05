@@ -90,8 +90,11 @@ def checkout(request):
 
         cart_items.delete()  # clear cart after order
 
-        return redirect('home')
+        return redirect('order_success')    
 
     return render(request, 'store/checkout.html', {
         'total_price': total_price
     })
+    
+def order_success(request):
+    return render(request, 'store/success.html')    
