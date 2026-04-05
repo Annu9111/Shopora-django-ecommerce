@@ -20,8 +20,10 @@ def product_detail(request, id):
     return render(request, 'store/product_details.html', {'product': product})
 
 
-def add_to_cart(request, id):
-    product = Product.objects.get(id=id)
+
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
 
     cart_item, created = Cart.objects.get_or_create(product=product)
 
@@ -29,12 +31,18 @@ def add_to_cart(request, id):
         cart_item.quantity += 1
         cart_item.save()
 
-    return redirect('home')
+    return redirect('cart')
 
 
 def cart_view(request):
     cart_items = Cart.objects.all()
-    return render(request, 'store/cart.html', {'cart_items': cart_items})
+
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    return render(request, 'store/cart.html', {
+        'cart_items': cart_items,
+        'total_price': total_price
+    })
 
 def remove_from_cart(request, cart_id):
     item = get_object_or_404(Cart, id=cart_id)
