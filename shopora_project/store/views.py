@@ -3,6 +3,8 @@ from .models import Product, Category,Cart,Order
 from django.shortcuts import render, redirect ,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     categories = Category.objects.all()
@@ -17,13 +19,14 @@ def home(request):
 
     return render(request, 'store/home.html', {'data': data})
 
+@login_required
 def product_detail(request, id):
     product = Product.objects.get(id=id)
     return render(request, 'store/product_details.html', {'product': product})
 
 
 
-
+@login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
 
@@ -35,7 +38,7 @@ def add_to_cart(request, product_id):
 
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def cart_view(request):
     cart_items = Cart.objects.all()
 
@@ -48,7 +51,8 @@ def cart_view(request):
         'cart_items': cart_items,
         'total_price': total_price
     })
-
+    
+@login_required
 def remove_from_cart(request, cart_id):
     item = get_object_or_404(Cart, id=cart_id)
     item.delete()
@@ -73,7 +77,7 @@ def decrease_quantity(request, cart_id):
 
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def checkout(request):
     cart_items = Cart.objects.all()
     total_price = sum(item.product.price * item.quantity for item in cart_items)
@@ -103,13 +107,22 @@ def order_success(request):
 
 
 
+
 def register(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        User.objects.create_user(username=username, password=password)
+        # ✅ CHECK IF USER EXISTS
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists ❌")
+            return redirect('register')
 
+        # ✅ CREATE USER
+        user = User.objects.create_user(username=username, password=password)
+        user.save()
+
+        messages.success(request, "Account created successfully ✅")
         return redirect('login')
 
     return render(request, 'store/register.html')
@@ -130,3 +143,5 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+            
