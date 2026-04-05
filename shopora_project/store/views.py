@@ -37,7 +37,10 @@ def add_to_cart(request, product_id):
 def cart_view(request):
     cart_items = Cart.objects.all()
 
-    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    for item in cart_items:
+        item.total = item.product.price * item.quantity
+
+    total_price = sum(item.total for item in cart_items)
 
     return render(request, 'store/cart.html', {
         'cart_items': cart_items,
