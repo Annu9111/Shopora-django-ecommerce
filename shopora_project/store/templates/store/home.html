@@ -33,7 +33,7 @@
           <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item"><a href="{% url 'products' %}" class="nav-link">Products</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'cart' %}">Cart</a></li>
-          <li class="nav-item"><a href="{% url 'orders' %}">My Orders</a></li>
+          <li class="nav-item"><a href="{% url 'orders' %}" class="nav-link">MY Orders</a></li>
 
           {% if user.is_authenticated %}
           <li class="nav-item">
@@ -97,7 +97,7 @@
 
     <div class="row">
       {% for product in item.products %}
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 
         <div class="card h-100 shadow-sm product-card">
 
