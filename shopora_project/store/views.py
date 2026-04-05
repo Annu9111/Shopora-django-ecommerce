@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Product, Category
+from .models import Product, Category,Cart
+from django.shortcuts import render, redirect
 
 def home(request):
     categories = Category.objects.all()
@@ -17,3 +18,16 @@ def home(request):
 def product_detail(request, id):
     product = Product.objects.get(id=id)
     return render(request, 'store/product_details.html', {'product': product})
+
+
+def add_to_cart(request, id):
+    product = Product.objects.get(id=id)
+
+    cart_item, created = Cart.objects.get_or_create(product=product)
+
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('home')
+

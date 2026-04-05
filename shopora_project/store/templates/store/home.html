@@ -67,7 +67,9 @@
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="text-success fw-bold">₹{{ product.price }}</p>
 
-                            <button class="btn btn-outline-primary btn-sm">Add to Cart</button>
+                            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-primary btn-sm">
+                                Add to Cart
+                            </a>
                         </div>
 
                     </div>
