@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product, Category,Cart
+from .models import Product, Category,Cart,Order
 from django.shortcuts import render, redirect ,get_object_or_404
 
 def home(request):
@@ -52,3 +52,46 @@ def remove_from_cart(request, cart_id):
     item.delete()
     return redirect('cart')
 
+
+def increase_quantity(request, cart_id):
+    item = get_object_or_404(Cart, id=cart_id)
+    item.quantity += 1
+    item.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def decrease_quantity(request, cart_id):
+    item = get_object_or_404(Cart, id=cart_id)
+
+    if item.quantity > 1:
+        item.quantity -= 1
+        item.save()
+    else:
+        item.delete()  # if quantity becomes 0 → remove item
+
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def checkout(request):
+    cart_items = Cart.objects.all()
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        phone = request.POST.get('phone')
+
+        Order.objects.create(
+            name=name,
+            address=address,
+            phone=phone,
+            total_price=total_price
+        )
+
+        cart_items.delete()  # clear cart after order
+
+        return redirect('home')
+
+    return render(request, 'store/checkout.html', {
+        'total_price': total_price
+    })
