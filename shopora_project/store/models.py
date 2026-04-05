@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User 
 
 # Category first
 class Category(models.Model):
@@ -29,6 +30,7 @@ class Cart(models.Model):
 
 class Order(models.Model):
     name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.TextField()
     phone = models.CharField(max_length=15)
     total_price = models.IntegerField()

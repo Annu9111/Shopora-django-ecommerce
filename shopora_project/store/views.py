@@ -88,6 +88,7 @@ def checkout(request):
         phone = request.POST.get('phone')
 
         Order.objects.create(
+            user=request.user,
             name=name,
             address=address,
             phone=phone,
