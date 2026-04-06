@@ -2,48 +2,50 @@
 
 <h2>🛒 My Orders</h2>
 
-{% for order in orders %}
+{% if orders %}
 
-<div class="card mb-3 p-3 shadow-sm">
+    {% for order in orders %}
 
-    <h5>Order by: {{ order.name }}</h5>
+    <div class="card mb-3 p-3 shadow-sm">
 
-    <p>Total: ₹ {{ order.total_price }}</p>
-    <p>Status: <b>{{ order.status }}</b></p>
+        <h5>Order by: {{ order.name }}</h5>
 
-    <p>Address: {{ order.address }}</p>
-    <p>Phone: {{ order.phone }}</p>
+        <p>Total: ₹ {{ order.total_price }}</p>
+        <p>Status: <b>{{ order.status }}</b></p>
 
-    <p class="text-muted">
-        Ordered on: {{ order.created_at }}
-    </p>
+        <p>Address: {{ order.address }}</p>
+        <p>Phone: {{ order.phone }}</p>
 
-    <hr>
-
-    <h6>Products:</h6>
-
-    {% for item in order.items.all %}
-        <p>
-            {{ item.product.name }} × {{ item.quantity }}
+        <p class="text-muted">
+            Ordered on: {{ order.created_at }}
         </p>
+
+        <hr>
+
+        <h6>Products:</h6>
+
+        {% for item in order.items.all %}
+            <p>
+                {{ item.product.name }} × {{ item.quantity }}
+            </p>
+        {% endfor %}
+
+        {% if order.status != "Cancelled" %}
+        <a href="{% url 'cancel_order' order.id %}" 
+           class="btn btn-danger mt-2"
+           onclick="return confirm('Cancel this order?')">
+           Cancel Order
+        </a>
+        {% endif %}
+
+    </div>
+
     {% endfor %}
 
-    {% if order.status != "Cancelled" %}
-    <a href="{% url 'cancel_order' order.id %}" 
-       class="btn btn-danger mt-2"
-       onclick="return confirm('Cancel this order?')">
-       Cancel Order
-    </a>
-    {% endif %}
+{% else %}
 
-</div>
+    <p>No orders yet 😔</p>
 
-{% endfor %}
-
-</div>
-
-  <p>No orders yet 😔</p>
-
-  {% endif %}
+{% endif %}
 
 </div>

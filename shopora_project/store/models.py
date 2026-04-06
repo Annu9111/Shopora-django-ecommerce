@@ -1,37 +1,43 @@
 from django.db import models
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 
 
-# Category
+# ================= CATEGORY =================
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
 
 
-# Product
+# ================= PRODUCT =================
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=200)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)  # ✅ better than Integer
     description = models.TextField()
     image = models.ImageField(upload_to='products/')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
 
-# Cart
+# ================= CART =================
 class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart_items')  # ✅ FIXED
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)  # ✅ no negative values
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'product')  # ✅ prevent duplicate entries
 
     def __str__(self):
-        return self.product.name    
+        return f"{self.user.username} - {self.product.name}"
 
 
-# Order (UPDATED ✅)
+# ================= ORDER =================
 class Order(models.Model):
 
     STATUS_CHOICES = (
@@ -40,23 +46,23 @@ class Order(models.Model):
         ('Completed', 'Completed'),
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
     name = models.CharField(max_length=100)
     address = models.TextField()
     phone = models.CharField(max_length=15)
-    total_price = models.IntegerField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')  # ✅ NEW
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)  # ✅ improved
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} - {self.status}"
+        return f"Order #{self.id} - {self.user.username} - {self.status}"
 
 
-# Order Items (NEW ✅)
+# ================= ORDER ITEMS =================
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField()
 
     def __str__(self):
         return f"{self.product.name} ({self.quantity})"
