@@ -1,50 +1,49 @@
+/* ================= GENERAL ================= */
 body {
+    font-family: 'Segoe UI', sans-serif;
     background-color: #f8f9fa;
 }
 
-h1 {
-    font-weight: bold;
-}
-
+/* ================= NAVBAR ================= */
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
-.btn-primary {
-    padding: 10px 20px;
-    border-radius: 8px;
+.navbar .nav-link {
+    font-weight: 500;
 }
 
-.product-card {
-    border-radius: 12px;
-    transition: 0.3s;
+.navbar .nav-link:hover {
+    color: #ffc107 !important;
 }
 
-.product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 12px 25px rgba(0,0,0,0.2);
+/* ================= SEARCH BAR ================= */
+form input[type="search"] {
+    width: 250px;
 }
 
-.hero1 {
-    background-image: url('/static/store/images/banner1.png');
+form input::placeholder {
+    font-size: 0.9rem;
 }
 
-.hero2 {
-    background-image: url('/static/store/images/banner2.png');
-}
-
-.hero3 {
-    background-image: url('/static/store/images/banner3.png');
-}
-
-.navbar-brand {
-    font-size: 22px;
-}
+/* ================= HERO SECTION ================= */
 .hero-slide {
     height: 400px;
     background-size: cover;
     background-position: center;
-    filter: brightness(50%); /* opacity effect */
+    filter: brightness(70%);
+}
+
+.hero1 {
+    background-image: url("/static/store/images/banner1.png");
+}
+
+.hero2 {
+    background-image: url("/static/store/images/banner2.png");
+}
+
+.hero3 {
+    background-image: url("/static/store/images/banner3.png");
 }
 
 .hero-content {
@@ -56,71 +55,249 @@ h1 {
     z-index: 10;
 }
 
-.hero-slide {
-    height: 50vh;            
-    background-size: cover;    /* Fill screen */
-    background-position: center;
-    background-repeat: no-repeat;
-
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
 }
 
-.hero-slide::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* dark overlay */
+.hero-content p {
+    font-size: 1.2rem;
 }
 
-.carousel-item {
-    position: relative;
-}
-.hero-slide {
-    width: 100%;
-    height: 50vh;              /* 👈 50% of screen height */
-    background-size: cover;    /* fills nicely */
-    /* background-position: center; */
-    background-position: right center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.carousel-item {
-    height: 50vh;   /* 👈 must match */
+/* ================= PRODUCTS ================= */
+.product-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-body {
-    margin: 0;
-    scroll-behavior: smooth;
-    background-color: #d5e7f9 !important; 
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-.navbar {
-    background-color: #424344 !important; /* dark navbar */
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
 }
 
-.card {
-    border: 4px solid black !important;
-    border-radius: 12px !important;
-    background-color: #a6fbde !important;
-    transition: 0.3s !important;
+.card img {
+    border-bottom: 1px solid #eee;
 }
 
-.card:hover {
-    transform: translateY(-5px);
+/* ================= BUTTON ================= */
+.btn-outline-primary {
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* ================= CATEGORY TITLE ================= */
+h3 {
+    font-weight: 600;
+}
+
+/* ================= SEARCH RESULT ================= */
+h4 {
+    font-weight: 500;
+}
+
+/* ================= ABOUT SECTION ================= */
+#about .card {
+    border-radius: 12px;
+}
+
+#about p {
+    font-size: 0.95rem;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    form input[type="search"] {
+        width: 150px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+}
+
+/* ================= AUTH PAGES ================= */
+
+.auth-bg {
+    background: linear-gradient(to right, #141e30, #243b55);
+}
+
+.login-card {
+    width: 350px;
+    border-radius: 12px;
+    background: white;
+}
+
+/* Inputs */
+.input-style {
+    border-radius: 25px;
+    padding: 10px 15px;
+}
+
+/* Button */
+.btn-login {
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+/* Hover effect */
+.btn-login:hover {
+    background-color: #0b5ed7;
+}
+
+/* Links */
+a {
+    color: #0d6efd;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ================= ORDERS PAGE ================= */
+
+.order-card {
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.order-card:hover {
+    transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-h2, h3 {
-    color: #1f2937;
+/* Badge styling */
+.badge {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 8px;
 }
 
-.card-img-top {
-    height: 220px;
+/* List group */
+.list-group-item {
+    border-radius: 8px !important;
+    margin-bottom: 5px;
+}
+
+/* ================= PRODUCT DETAIL ================= */
+
+.product-image-box {
+    border-radius: 12px;
+    background: #fff;
+}
+
+.product-img {
+    max-height: 350px;
+    object-fit: contain;
+    transition: 0.3s;
+}
+
+.product-img:hover {
+    transform: scale(1.05);
+}
+
+/* Buttons */
+.btn-lg {
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+/* Description */
+.text-muted {
+    font-size: 0.95rem;
+}
+
+/* ================= PRODUCTS PAGE ================= */
+
+.product-img {
+    height: 200px;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.product-img:hover {
+    transform: scale(1.05);
+}
+
+/* Card hover */
+.product-card {
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn-sm {
+    border-radius: 20px;
+    padding: 4px 12px;
+}
+
+/* ================= CHECKOUT ================= */
+
+.checkout-card {
+    border-radius: 12px;
+}
+
+/* Input styling (reuse from auth) */
+.input-style {
+    border-radius: 25px;
+    padding: 10px 15px;
+}
+
+/* Button */
+.btn-login {
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+/* Hover */
+.btn-login:hover {
+    opacity: 0.9;
+}
+
+/* ================= CART PAGE ================= */
+
+.cart-card {
+    border-radius: 12px;
+}
+
+.cart-img {
+    height: 80px;
     object-fit: cover;
 }
 
-.card {
-    border-radius: 10px;
+/* Quantity buttons */
+.btn-sm {
+    border-radius: 20px;
+    padding: 4px 10px;
+}
+
+/* Summary box */
+.cart-summary {
+    border-radius: 12px;
+}
+
+/* Remove link */
+.text-danger.small {
+    cursor: pointer;
+}
+
+/* Hover effect */
+.cart-card .row:hover {
+    background: #f9f9f9;
 }

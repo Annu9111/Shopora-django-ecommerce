@@ -1,78 +1,116 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Cart - Shopora</title>
+  <meta charset="UTF-8">
+  <title>Cart | Shopora</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
 </head>
 
 <body>
 
-  <div class="container mt-5">
-    <h2 class="text-center mb-4">🛒 Your Cart</h2>
+<div class="container mt-5">
 
-    {% if cart_items %}
-    <div class="row">
+  <h2 class="text-center mb-4">🛒 Your Cart</h2>
 
-      {% for item in cart_items %}
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
+  {% if cart_items %}
+
+  <div class="row">
+
+    <!-- 🛍️ CART ITEMS -->
+    <div class="col-md-8">
+
+      <div class="card shadow p-3 cart-card">
+
+        {% for item in cart_items %}
+        <div class="row align-items-center mb-3 border-bottom pb-3">
 
           <!-- Image -->
-          <img src="{{ item.product.image.url }}" class="card-img-top"
-            style="height:200px; object-fit:cover;">
+          <div class="col-3">
+            <img src="{{ item.product.image.url }}" class="img-fluid rounded cart-img">
+          </div>
 
-          <!-- Body -->
-          <div class="card-body text-center">
+          <!-- Details -->
+          <div class="col-5">
+            <h6>{{ item.product.name }}</h6>
+            <p class="text-success fw-bold mb-1">₹ {{ item.product.price }}</p>
+          </div>
 
-            <!-- Product Name -->
-            <h5>{{ item.product.name }}</h5>
+          <!-- Quantity -->
+          <div class="col-2 text-center">
 
-            <!-- Quantity Controls -->
-            <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+            <div class="d-flex justify-content-center align-items-center gap-2">
 
-              <a href="{% url 'decrease_quantity' item.id %}"
-                class="btn btn-outline-danger btn-sm">−</a>
+              <a href="{% url 'decrease_quantity' item.id %}" class="btn btn-outline-danger btn-sm">−</a>
 
               <span class="fw-bold">{{ item.quantity }}</span>
 
-              <a href="{% url 'increase_quantity' item.id %}"
-                class="btn btn-outline-success btn-sm">+</a>
+              <a href="{% url 'increase_quantity' item.id %}" class="btn btn-outline-success btn-sm">+</a>
 
             </div>
 
-            <!-- Item Total -->
-            <p class="text-success fw-bold">
-              Total: ₹{{ item.total }}
-            </p>
+          </div>
 
-            <!-- Remove Button -->
-            <a href="{% url 'remove_from_cart' item.id %}"
-              class="btn btn-danger btn-sm">
+          <!-- Total + Remove -->
+          <div class="col-2 text-end">
+            <p class="fw-bold mb-1">₹ {{ item.total }}</p>
+
+            <a href="{% url 'remove_from_cart' item.id %}" class="text-danger small">
               Remove
             </a>
-
           </div>
 
         </div>
+        {% endfor %}
+
       </div>
-      {% endfor %}
 
     </div>
 
-    <!-- Grand Total -->
-    <div class="text-center mt-4">
-      <h3>Total Price: ₹{{ total_price }}</h3>
-      <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">Checkout</a>
-    </div>
+    <!-- 💰 SUMMARY -->
+    <div class="col-md-4">
 
-    {% else %}
-    <h4 class="text-center text-muted">Your cart is empty 😢</h4>
-    {% endif %}
+      <div class="card shadow p-4 cart-summary">
+
+        <h5 class="mb-3">Order Summary</h5>
+
+        <hr>
+
+        <h4 class="text-success">₹ {{ total_price }}</h4>
+
+        <p class="text-muted">Total amount (including taxes)</p>
+
+        <a href="{% url 'checkout' %}" class="btn btn-success w-100 mt-3">
+          Proceed to Checkout
+        </a>
+
+      </div>
+
+    </div>
 
   </div>
 
-</body>
+  {% else %}
 
+  <!-- EMPTY CART -->
+  <div class="text-center mt-5">
+    <h4 class="text-muted">Your cart is empty 😢</h4>
+    <a href="{% url 'products' %}" class="btn btn-primary mt-3">
+      Start Shopping
+    </a>
+  </div>
+
+  {% endif %}
+
+</div>
+
+</body>
 </html>

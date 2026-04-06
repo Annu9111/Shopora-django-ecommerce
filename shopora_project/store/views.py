@@ -181,7 +181,20 @@ def user_logout(request):
 # ================= PRODUCTS PAGE =================
 def products_page(request):
     products = Product.objects.all()
+
+    query = request.GET.get('q')
+    sort = request.GET.get('sort')
+
+    if query:
+        products = products.filter(name__icontains=query)
+
+    if sort == "low":
+        products = products.order_by('price')
+    elif sort == "high":
+        products = products.order_by('-price')
+
     return render(request, 'store/products.html', {'products': products})
+    
 
 
 # ================= ORDERS PAGE =================
