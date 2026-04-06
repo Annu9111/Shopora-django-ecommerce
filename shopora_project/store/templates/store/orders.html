@@ -1,5 +1,33 @@
-<h2>My Orders</h2>
+<div class="container mt-5">
 
-{% for order in orders %}
-    <p>{{ order.product.name }} - ₹{{ order.total_price }}</p>
-{% endfor %}
+    <h2 class="mb-4">🛒 My Orders</h2>
+
+    {% if orders %}
+    
+        {% for order in orders %}
+        
+        <div class="card mb-3 shadow-sm p-3">
+
+            <h5>Order by: {{ order.name }}</h5>
+
+            <p><strong>Total:</strong> ₹ {{ order.total_price }}</p>
+
+            <p><strong>Address:</strong> {{ order.address }}</p>
+
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+
+            <p class="text-muted">
+                Ordered on: {{ order.created_at }}
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No orders yet 😔</p>
+
+    {% endif %}
+
+</div>

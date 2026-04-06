@@ -120,3 +120,7 @@ h2, h3 {
     height: 220px;
     object-fit: cover;
 }
+
+.card {
+    border-radius: 10px;
+}
