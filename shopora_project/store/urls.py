@@ -16,4 +16,5 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('products/', views.products_page, name='products'),
     path('orders/', views.orders_page, name='orders'),
+    path('cancel-order/<int:id>/', views.cancel_order, name='cancel_order'),
 ]

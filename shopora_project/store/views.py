@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product, Category,Cart,Order
+from .models import Product, Category,Cart,Order,OrderItem
 from django.shortcuts import render, redirect ,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -78,6 +78,7 @@ def decrease_quantity(request, cart_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required
+@login_required
 def checkout(request):
     cart_items = Cart.objects.all()
     total_price = sum(item.product.price * item.quantity for item in cart_items)
@@ -87,7 +88,8 @@ def checkout(request):
         address = request.POST.get('address')
         phone = request.POST.get('phone')
 
-        Order.objects.create(
+        # Create Order
+        order = Order.objects.create(
             user=request.user,
             name=name,
             address=address,
@@ -95,9 +97,17 @@ def checkout(request):
             total_price=total_price
         )
 
-        cart_items.delete()  # clear cart after order
+        # Save Order Items ✅
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity
+            )
 
-        return redirect('order_success')    
+        cart_items.delete()
+
+        return redirect('order_success')
 
     return render(request, 'store/checkout.html', {
         'total_price': total_price
@@ -153,4 +163,14 @@ def products_page(request):
 
 def orders_page(request):
     orders = Order.objects.filter(user=request.user)
-    return render(request, 'store/orders.html', {'orders': orders})            
+    return render(request, 'store/orders.html', {'orders': orders})     
+
+
+@login_required
+def cancel_order(request, id):
+    order = get_object_or_404(Order, id=id, user=request.user)
+
+    order.status = "Cancelled"   # ✅ NOT DELETE
+    order.save()
+
+    return redirect('orders')  
