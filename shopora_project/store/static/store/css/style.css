@@ -2,6 +2,7 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(to right, #c0dbf7, #f8e799) !important;
+    /* text-decoration: none !important; */
 }
 
 /* ================= NAVBAR ================= */
@@ -300,4 +301,19 @@ a:hover {
 /* Hover effect */
 .cart-card .row:hover {
     background: #f9f9f9;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    transition: 0.3s;
+}
+
+/* Remove underline from all links */
+a {
+    text-decoration: none !important;
+}
+
+/* Remove underline on hover */
+a:hover {
+    text-decoration: none !important;
 }
