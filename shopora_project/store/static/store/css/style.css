@@ -1,7 +1,7 @@
 /* ================= GENERAL ================= */
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f8f9fa;
+    background: linear-gradient(to right, #c0dbf7, #f8e799) !important;
 }
 
 /* ================= NAVBAR ================= */
@@ -51,7 +51,7 @@ form input::placeholder {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: rgb(250, 249, 248);
     z-index: 10;
 }
 
@@ -82,7 +82,7 @@ form input::placeholder {
 }
 
 .card img {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #b5f0f6 !important;
 }
 
 /* ================= BUTTON ================= */
@@ -92,7 +92,7 @@ form input::placeholder {
 }
 
 .btn-outline-primary:hover {
-    background-color: #0d6efd;
+    background-color: #060708;
     color: white;
 }
 
@@ -135,7 +135,7 @@ h4 {
 .login-card {
     width: 350px;
     border-radius: 12px;
-    background: white;
+    background: rgb(235, 231, 231);
 }
 
 /* Inputs */

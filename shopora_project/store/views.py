@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Wishlist
 
 
 # ================= HOME =================
@@ -211,3 +212,29 @@ def cancel_order(request, id):
     order.status = "Cancelled"
     order.save()
     return redirect('orders')
+
+@login_required
+def add_to_wishlist(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    Wishlist.objects.get_or_create(
+        user=request.user,
+        product=product
+    )
+
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+@login_required
+def wishlist_view(request):
+    items = Wishlist.objects.filter(user=request.user)
+
+    return render(request, 'store/wishlist.html', {
+        'items': items
+    })
+    
+@login_required
+def remove_from_wishlist(request, id):
+    item = get_object_or_404(Wishlist, id=id, user=request.user)
+    item.delete()
+    return redirect('wishlist')    
+    
