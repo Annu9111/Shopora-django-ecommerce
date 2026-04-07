@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Load environment variables
 load_dotenv()
@@ -25,8 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'store',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 
@@ -127,3 +131,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ================= DEFAULT FIELD =================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+    'API_KEY': os.getenv('API_KEY'),
+    'API_SECRET': os.getenv('API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
