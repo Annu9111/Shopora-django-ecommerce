@@ -11,12 +11,14 @@ class Category(models.Model):
 
 
 # ================= PRODUCT =================
+from cloudinary.models import CloudinaryField
+
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=10, decimal_places=2)  # ✅ better than Integer
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
-    image = models.ImageField(upload_to='products/')
+    image = CloudinaryField('image')   # ✅ FIXED
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
