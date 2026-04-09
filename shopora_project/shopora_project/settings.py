@@ -17,7 +17,9 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-secret-key')
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [ '.railway.app',
+    'localhost',
+    '127.0.0.1']
 
 
 # ================= APPLICATIONS =================
